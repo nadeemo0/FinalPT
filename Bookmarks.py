@@ -1,4 +1,5 @@
-import os #to use history tracked on a doc
+import os
+import time #to use history tracked on a doc
 
 #create history file
 def create_file():
@@ -15,9 +16,10 @@ def add_bookmark():
 
     #append the new bookmark to the file
     with open("bookmarks.txt", "a") as f:
-      f.write(f"{topic}\t{url}\t{note}")
+      f.write(f"{topic}\t{url}\t{note}\n")
 
     print(f"Added {topic}")
+    break
 
 #Display bookmarks
 def display_bookmarks():
@@ -29,18 +31,29 @@ def display_bookmarks():
     print("You dont have any stored bookmarks")
   else:
     for bookmark in bookmarks:
-      topic, url, note = bookmarks.split("\t")
+      topic, url, note = bookmark.split("\t")
       print(f"{topic.capitalize()}: {url} - {note}\n")
 
 #delete bookmarks
 def clear():
-
-
+  while True:
+    choice = input("Are you sure you want to clear all saved bookmarks(y/n):")
+    if choice == "n":
+      break
+    elif choice == "y":
+      with open("bookmarks.txt", "w") as f:
+        f.write("")
+        print("All Bookmarks Cleared")
+        break
+    else:
+      print("Invalid choice please try again")
+  
 def main():
   # creates file if not there
   create_file()
 
   while True:
+    time.sleep(1)
     print("1. Add Bookmark")
     print("2. Display Bookmarks")
     print("3. Clear Bookmarks")

@@ -1,11 +1,12 @@
 import os
-import time #to use history tracked on a doc
+import time
 
 #abstracting moving text
 def moving(message, speed):
   for char in message:
     print(char, end='', flush = True)
     time.sleep(speed)
+
 #create history file
 def create_file():
   if not os.path.exists("bookmarks.txt"):
@@ -43,9 +44,12 @@ def display_bookmarks():
 #delete all bookmarks
 def clear():
   while True:
-    print("Which do you want to clear:\n1. By section \n2. All")
+    m4 = "Which do you want to clear:\n1. By section \n2. All"
+    moving(m4, 0.1)
     choice = input("Which do you want to clear:")
     
+    if choice == "1":
+
     if choice == "2":
       sure = "Are you sure? (y/n):"
       moving(sure, 0.01)
@@ -53,12 +57,40 @@ def clear():
       if sure.lower() == "y":
         with open("bookmarks.txt", "w") as f:
           f.write("")
-          print("All bookmarks Cleared")
+          m5 = "All bookmarks Cleared"
+          moving(m, 0.1)
           break
       else:
         break
     else:
       print("Invalid choice, Try again")
+
+def by_sec():
+  with open("bookmarks.txt","r") as f:
+    bookmarks = f.read().splitlines()
+
+  if len(bookmarks) == 0:
+    m2 = "Sorry no bookmarks stored."
+    moving(m2, 0.1)
+  else:
+    sections = ["Health", "Arabic", "History", "Math", "Bio", "English", "CSP", "ST"]
+    for i, section in enumerate(sections):
+      print(f"{i+1}. {section.capitalize()}")
+      m3 = "Enter section number:"
+      moving(m3, 0.2)
+      choice = input("")
+      sec_bkmrk = [bookmark for bookmark in bookmarks if bookmark.startswith(f"{sections[int(choice)-1]}\t")]
+      if len(sec_bkmrk) > 0:
+        print(f"\n{sections[int(choice)-1].capitalize()} bookmarks:")
+            for bookmark in section_bookmarks:
+                _, topic, url, note = bookmark.split("\t")
+                print(f"{topic} - {url}")
+                if note:
+                    print(f"  Note: {note}\n\n")
+                else:
+                    print("\n\n")
+        else:
+            print("No bookmarks found for the selected section.")
   
 def main():
   # creates file if not there
@@ -78,7 +110,8 @@ def main():
       display_bookmarks()
     if choice == "3":
       clear()
-
+    if choice --"4":
+      by_sec()
     if choice == "5":
       break
   

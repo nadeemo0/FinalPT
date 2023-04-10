@@ -82,7 +82,7 @@ def by_sec():
       sec_bkmrk = [bookmark for bookmark in bookmarks if bookmark.startswith(f"{sections[int(choice)-1]}\t")]
       if len(sec_bkmrk) > 0:
         print(f"\n{sections[int(choice)-1].capitalize()} bookmarks:")
-            for bookmark in section_bookmarks:
+            for bookmark in sec_bkmrk:
                 _, topic, url, note = bookmark.split("\t")
                 print(f"{topic} - {url}")
                 if note:

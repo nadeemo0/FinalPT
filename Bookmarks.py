@@ -23,12 +23,12 @@ def add_bookmark():
 
     #append the new bookmark to the file
     with open("bookmarks.txt", "a") as f:
-      f.write(f"{section}\t{topic}\t{url}\t{note}\n")
+      f.write(f"{section.capitalize()}\t{topic.capitalize()}\t{url}\t{note}\n")
     print(f"Added {section}: {topic}")
 
   #Ask if they would like to add another
-    m6 = "Do you want to add another bookmark?"
-    moving(m6,0.1)
+    m6 = "Do you want to add another bookmark?(y/n)\n"
+    moving(m6,0.05)
     c = input("")
     if c.lower() != "y":
       break
@@ -44,11 +44,11 @@ def display_bookmarks():
   else:
     for bookmark in bookmarks:
       section, topic, url, note = bookmark.split("\t")
-      print(f"{section.capitalize()}: {topic} {url}\n")
+      print(f"{section}: {topic} {url}\n")
       if note:
-        print(f"Note: {note}")
+        print(f"Note: {note}\n\n")
       else:
-        print("\n")
+        print("\n\n")
 
 def disp_top():
   with open("bookmarks.txt", "r") as f:
@@ -56,35 +56,29 @@ def disp_top():
 
   if len(bookmarks) == 0:
     mes = "No bookmarks found."
-    moving(mes, 0.1)
+    moving(mes, 0.075)
   else:
-    topics =set([bookmark.split("\t")[1]] for bookmark in bookmarks)
-    print("\nTopics")
+    topics = set([bookmark.split("\t")[1] for bookmark in bookmarks])
+    print("\nTopics:")
     for topic in sorted(topics):
       print(f"- {topic}")
 
 #delete all bookmarks
 def clear():
   while True:
-    m4 = "Are you sure you want to clear all Messages"
+    m4 = "Are you sure you want to clear all bookmarks"
     moving(m4, 0.1)
     choice = input("(y/n)")
-    if choice == "n":
-      break
     if choice == "y":
-      sure = "Are you sure? (y/n):"
-      moving(sure, 0.01)
-      input("")
-      if sure.lower() == "y":
-        with open("bookmarks.txt", "w") as f:
-          f.write("")
-          m5 = "All bookmarks Cleared"
-          moving(m5, 0.05)
-          break
-      else:
+      with open("bookmarks.txt", "w") as f:
+        f.write("")
+        m5 = "All bookmarks Cleared\n"
+        moving(m5, 0.05)
         break
+    elif choice == "n":
+      break
     else:
-      print("Invalid choice, Try again")
+      print("Invalid choice, Try again\n")
 
 def by_sec():
   with open("bookmarks.txt","r") as f:
@@ -92,9 +86,9 @@ def by_sec():
 
   if len(bookmarks) == 0:
     m2 = "Sorry no bookmarks stored."
-    moving(m2, 0.1)
+    moving(m2, 0.05)
   else:
-    sections = ["Health", "Arabic", "History", "Math", "Bio", "English", "CSP", "ST"]
+    sections = ["Health", "Arabic", "History", "Math", "Bio", "English", "Csp", "ST"]
     for i, section in enumerate(sections):
       print(f"{i+1}. {section.capitalize()}")
     m3 = "Enter section number:"
@@ -120,8 +114,8 @@ def main():
   while True:
     time.sleep(1)
     # Moving message
-    m1 = "1. Add Bookmark\n2. Diplay Bookmarks\n3. Clear Bookmarks\n4. Display by secton\n5. Display topic list\n6. Exit\n\nOption:"
-    moving(m1, 0.05)
+    m1 = "\n\n1. Add Bookmark\n2. Diplay Bookmarks\n3. Clear Bookmarks\n4. Display by secton\n5. Display topic list\n6. Exit\n\nOption:"
+    moving(m1, 0.025)
 
     choice = input("")
 
